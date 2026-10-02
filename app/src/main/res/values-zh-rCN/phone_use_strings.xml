@@ -1,0 +1,4 @@
+<resources>
+    <string name="phone_use_label">Mobile Codex 手机控制</string>
+    <string name="phone_use_description">在应用中启用手机控制后，Codex 可以把其他应用的屏幕内容和截图发送给 AI 服务，并通过点击、输入和滚动来执行你的请求。屏幕信息可能保留在 Codex 对话记录中。你可以随时使用屏幕上的停止按钮关闭控制。仅授予无障碍权限不会自动启动手机控制。</string>
+</resources>
