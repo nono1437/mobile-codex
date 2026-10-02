@@ -10,6 +10,10 @@ const localeScript = fs.readFileSync(
   path.join(__dirname, '..', 'app', 'src', 'main', 'assets', 'web', 'locale.js'),
   'utf8'
 );
+const zhApkWorkflow = fs.readFileSync(
+  path.join(__dirname, '..', '.github', 'workflows', 'zh-cn-apk.yml'),
+  'utf8'
+);
 
 function setup(systemLanguage = 'zh-CN') {
   const dom = new JSDOM(`<!doctype html><html><body>
@@ -67,4 +71,13 @@ test('Traditional Chinese device locale falls back to English in this first pass
   const window = setup('zh-TW');
   assert.equal(window.MobileCodexLocale.language(), 'en');
   assert.equal(window.document.getElementById('settings-label').textContent, 'Settings');
+});
+
+test('zh-CN test APK refreshes the rolling Termux lock before preparing devtools', () => {
+  const commands = zhApkWorkflow.split('\n').map((line) => line.trim());
+  const refresh = commands.indexOf('python3 tools/prepare_devtools.py --write-lock');
+  const prepare = commands.indexOf('python3 tools/prepare_devtools.py');
+  assert.notEqual(refresh, -1, 'workflow must refresh the Termux package lock');
+  assert.notEqual(prepare, -1, 'workflow must prepare the devtools runtime');
+  assert.ok(refresh < prepare, 'lock refresh must happen before devtools preparation');
 });
