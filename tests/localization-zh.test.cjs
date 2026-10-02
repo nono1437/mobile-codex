@@ -11,7 +11,7 @@ const localeScript = fs.readFileSync(
   'utf8'
 );
 const zhApkWorkflow = fs.readFileSync(
-  path.join(__dirname, '..', '.github', 'workflows', 'zh-cn-apk.yml'),
+  path.join(__dirname, '..', '.github', 'workflows', 'zh-cn-test-apk.yml'),
   'utf8'
 );
 
