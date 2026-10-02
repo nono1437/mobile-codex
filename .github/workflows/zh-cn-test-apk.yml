@@ -44,11 +44,12 @@ jobs:
       - name: Run UI tests, including zh-CN locale tests
         run: npm test
 
-      - name: Prepare pinned Android runtimes
+      - name: Refresh and prepare Android runtimes
         run: |
           sdkmanager 'ndk;28.2.13676358'
           python3 tools/prepare_runtime.py
           python3 tools/build_native.py --ndk "$ANDROID_HOME/ndk/28.2.13676358"
+          python3 tools/prepare_devtools.py --write-lock
           python3 tools/prepare_devtools.py
 
       - name: Build debug APK
